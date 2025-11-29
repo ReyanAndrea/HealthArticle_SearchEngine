@@ -277,17 +277,14 @@ Script akan crawl artikel dari sumber-sumber kesehatan terpercaya dan menyimpan 
 <table>
   <tr>
     <td align="center">
-      <img src="https://via.placeholder.com/100" width="100px;" alt=""/><br />
       <sub><b>Reyan Andrea</b></sub><br />
       <sub>2208107010014</sub>
     </td>
     <td align="center">
-      <img src="https://via.placeholder.com/100" width="100px;" alt=""/><br />
       <sub><b>Mahardika Shiddiq Anshari</b></sub><br />
       <sub>2308107010032</sub>
     </td>
     <td align="center">
-      <img src="https://via.placeholder.com/100" width="100px;" alt=""/><br />
       <sub><b>Muhammad Nazlul Ramadhyan</b></sub><br />
       <sub>2308107010036</sub>
     </td>
@@ -301,7 +298,7 @@ Universitas Syiah Kuala
 
 ## 🎓 Acknowledgments
 
-Proyek ini dikembangkan sebagai tugas akhir mata kuliah **Penelusuran Informasi** dibawah bimbingan:
+Proyek ini dikembangkan sebagai tugas akhir mata kuliah **Penelusuran Informasi**
 
 
 ## ⭐ Show Your Support
