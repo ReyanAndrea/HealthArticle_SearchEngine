@@ -13,28 +13,17 @@ class DataLoader:
     def load_from_json(self):
         """Load artikel dari file JSON"""
         if not os.path.exists(self.json_file):
-            try:
-                print(f"File {self.json_file} tidak ditemukan!")
-                print("Jalankan scraper.py terlebih dahulu untuk mengumpulkan data.")
-            except:
-                pass
+            print(f"File {self.json_file} tidak ditemukan!")
+            print("Jalankan scraper.py terlebih dahulu untuk mengumpulkan data.")
             return []
         
         try:
             with open(self.json_file, 'r', encoding='utf-8') as f:
                 self.articles = json.load(f)
-            
-            try:
-                print(f"Berhasil load {len(self.articles)} artikel dari {self.json_file}")
-            except:
-                pass
+            print(f"Berhasil load {len(self.articles)} artikel dari {self.json_file}")
             return self.articles
-        
         except Exception as e:
-            try:
-                print(f"Error loading data: {str(e)}")
-            except:
-                pass
+            print(f"Error loading data: {str(e)}")
             return []
     
     def get_statistics(self):
@@ -68,51 +57,39 @@ class DataLoader:
         stats = self.get_statistics()
         
         if not stats:
-            try:
-                print("Tidak ada data untuk ditampilkan")
-            except:
-                pass
+            print("Tidak ada data untuk ditampilkan")
             return
         
-        try:
-            print("\n" + "="*60)
-            print("STATISTIK DATASET")
-            print("="*60)
-            print(f"Total Artikel: {stats['total_articles']}")
-            print(f"Rata-rata Panjang Konten: {stats['avg_content_length']:.0f} karakter")
-            print(f"Panjang Min: {stats['min_content_length']} karakter")
-            print(f"Panjang Max: {stats['max_content_length']} karakter")
-            
-            print("\nDistribusi per Sumber:")
-            for source, count in stats['sources'].items():
-                percentage = (count / stats['total_articles']) * 100
-                print(f"  - {source}: {count} artikel ({percentage:.1f}%)")
-            print("="*60)
-        except:
-            pass
+        print("\n" + "="*60)
+        print("STATISTIK DATASET")
+        print("="*60)
+        print(f"Total Artikel: {stats['total_articles']}")
+        print(f"Rata-rata Panjang Konten: {stats['avg_content_length']:.0f} karakter")
+        print(f"Panjang Min: {stats['min_content_length']} karakter")
+        print(f"Panjang Max: {stats['max_content_length']} karakter")
+        
+        print("\nDistribusi per Sumber:")
+        for source, count in stats['sources'].items():
+            percentage = (count / stats['total_articles']) * 100
+            print(f"  - {source}: {count} artikel ({percentage:.1f}%)")
+        print("="*60)
     
     def sample_articles(self, n=5):
         """Tampilkan sample artikel"""
         if not self.articles:
-            try:
-                print("Tidak ada artikel untuk ditampilkan")
-            except:
-                pass
+            print("Tidak ada artikel untuk ditampilkan")
             return
         
-        try:
-            print(f"\nSAMPLE {min(n, len(self.articles))} ARTIKEL:")
-            print("="*60)
-            
-            for i, article in enumerate(self.articles[:n], 1):
-                print(f"\n{i}. {article.get('title', 'No Title')}")
-                print(f"   Sumber: {article.get('source', 'Unknown')}")
-                print(f"   URL: {article.get('url', '')}")
-                content = article.get('content', '')
-                print(f"   Konten: {content[:150]}...")
-                print("-"*60)
-        except:
-            pass
+        print(f"\nSAMPLE {min(n, len(self.articles))} ARTIKEL:")
+        print("="*60)
+        
+        for i, article in enumerate(self.articles[:n], 1):
+            print(f"\n{i}. {article.get('title', 'No Title')}")
+            print(f"   Sumber: {article.get('source', 'Unknown')}")
+            print(f"   URL: {article.get('url', '')}")
+            content = article.get('content', '')
+            print(f"   Konten: {content[:150]}...")
+            print("-"*60)
 
 def main():
     """Main function untuk testing"""

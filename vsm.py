@@ -78,24 +78,38 @@ class VectorSpaceModel:
         # Create query vector
         query_vector = self._create_tfidf_vector(query_tokens)
         
-        # Calculate similarity dengan semua dokumen
+        # Optimize: Get candidate documents yang mengandung minimal satu query term
+        candidate_doc_ids = set()
+        for term in query_tokens:
+            if term in self.inverted_index:
+                candidate_doc_ids.update(self.inverted_index[term])
+        
+        # If no candidates, search all documents
+        if not candidate_doc_ids:
+            candidate_doc_ids = set(d['id'] for d in self.documents)
+        
+        # Calculate similarity hanya untuk candidate documents
         scores = []
         for doc in self.documents:
             doc_id = doc['id']
+            if doc_id not in candidate_doc_ids:
+                continue
+            
             similarity = self._cosine_similarity(
                 query_vector,
                 self.doc_vectors[doc_id],
                 self.doc_lengths[doc_id]
             )
             
-            scores.append({
-                'doc_id': doc_id,
-                'title': doc['title'],
-                'content': doc['content'],
-                'url': doc['url'],
-                'date': doc['date'],
-                'score': similarity
-            })
+            if similarity > 0:
+                scores.append({
+                    'doc_id': doc_id,
+                    'title': doc['title'],
+                    'content': doc['content'],
+                    'url': doc['url'],
+                    'date': doc['date'],
+                    'score': similarity
+                })
         
         # Sort by score (descending)
         scores.sort(key=lambda x: x['score'], reverse=True)

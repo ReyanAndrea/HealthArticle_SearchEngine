@@ -14,6 +14,10 @@ from sample_data import SAMPLE_CORPUS, TEST_QUERIES
 from data_loader import DataLoader
 import time
 
+# Note: Untuk generate data baru, gunakan:
+# - python data_generator.py (RECOMMENDED - lebih deskriptif)
+# - atau python scraper.py (legacy)
+
 # Page config
 st.set_page_config(
     page_title="Health Article Search Engine",
@@ -22,7 +26,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Modern CSS with gradient backgrounds and better styling
+# Modern CSS with gradient backgrou nds and better styling
 st.markdown("""
 <style>
     /* Import Google Fonts */
@@ -537,9 +541,12 @@ def main():
             st.subheader("📊 Statistik Korpus")
             st.metric("Jumlah Dokumen", len(st.session_state.corpus))
             
-            vsm_stats = st.session_state.vsm.get_stats()
-            st.metric("Ukuran Vocabulary", vsm_stats['vocabulary_size'])
-            st.metric("Rata-rata Panjang Dokumen", f"{vsm_stats['avg_doc_length']:.1f}")
+            try:
+                vsm_stats = st.session_state.vsm.get_stats()
+                st.metric("Ukuran Vocabulary", vsm_stats.get('vocabulary_size', 0))
+                st.metric("Rata-rata Panjang Dokumen", f"{vsm_stats.get('avg_doc_length', 0):.1f}")
+            except Exception as e:
+                st.warning(f"⚠️ Error memuat statistik: {str(e)}")
             
             if st.session_state.data_source == 'scraping':
                 st.success("✅ Menggunakan data scraping")
